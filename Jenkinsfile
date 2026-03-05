@@ -4,10 +4,18 @@ pipeline {
     stages {
 
         stage('Checkout Code') {
-    steps {
-        git branch: 'main', url: 'https://github.com/RuturajWairkar6536/scientific-calculator-devops.git'
-    }
-}
+            steps {
+                git branch: 'main', url: 'https://github.com/RuturajWairkar6536/scientific-calculator-devops.git'
+            }
+        }
+
+        stage('Unit Testing') {
+            steps {
+                sh 'javac Calculator.java'
+                sh 'javac CalculatorTest.java'
+                sh 'java CalculatorTest'
+            }
+        }
 
         stage('Build Java Program') {
             steps {
