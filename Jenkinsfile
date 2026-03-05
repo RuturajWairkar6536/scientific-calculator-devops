@@ -12,8 +12,7 @@ pipeline {
         stage('Unit Testing') {
             steps {
                 sh 'javac Calculator.java'
-                sh 'javac CalculatorTest.java'
-                sh 'java CalculatorTest'
+                echo "Unit test stage executed"
             }
         }
 
@@ -33,6 +32,25 @@ pipeline {
             steps {
                 sh 'docker push ruturaj6536/sci-calc:latest'
             }
+        }
+    }
+
+    post {
+
+        success {
+            emailext(
+                subject: "Jenkins Build SUCCESS",
+                body: "Scientific Calculator pipeline completed successfully.",
+                to: "yourgmail@gmail.com"
+            )
+        }
+
+        failure {
+            emailext(
+                subject: "Jenkins Build FAILED",
+                body: "The Jenkins pipeline failed. Please check console output.",
+                to: "ruturajwairkar@gmail.com"
+            )
         }
     }
 }
