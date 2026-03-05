@@ -1,0 +1,16 @@
+- hosts: localhost
+  become: true
+
+  tasks:
+    - name: Pull calculator image from DockerHub
+      docker_image:
+        name: ruturaj6536/sci-calc
+        source: pull
+
+    - name: Run calculator container
+      docker_container:
+        name: sci_calc_container
+        image: ruturaj6536/sci-calc
+        state: started
+        interactive: true
+        tty: true
