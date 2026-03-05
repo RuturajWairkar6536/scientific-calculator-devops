@@ -41,7 +41,7 @@ pipeline {
             emailext(
                 subject: "Jenkins Build SUCCESS",
                 body: "Scientific Calculator pipeline completed successfully.",
-                to: "yourgmail@gmail.com"
+                to: "ruturajwairkar@gmail.com"
             )
         }
 
