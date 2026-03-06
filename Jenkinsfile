@@ -35,22 +35,19 @@ pipeline {
         }
     }
 
-    post {
+   post {
+    always {
+        emailext(
+            subject: "Jenkins Build: ${currentBuild.currentResult}",
+            body: """
+Build Status: ${currentBuild.currentResult}
 
-        success {
-            emailext(
-                subject: "Jenkins Build SUCCESS",
-                body: "Scientific Calculator pipeline completed successfully.",
-                to: "Ruturaj.Wairkar@iiitb.ac.in"
-            )
-        }
-
-        failure {
-            emailext(
-                subject: "Jenkins Build FAILED",
-                body: "The Jenkins pipeline failed. Please check console output.",
-                to: "Ruturaj.Wairkar@iiitb.ac.in"
-            )
-        }
+Project: Scientific Calculator Pipeline
+Build Number: ${env.BUILD_NUMBER}
+Build URL: ${env.BUILD_URL}
+""",
+            to: "ruturajwairkar@gmail.com"
+        )
     }
+}   
 }
