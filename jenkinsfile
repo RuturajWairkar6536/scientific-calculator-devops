@@ -1,0 +1,79 @@
+pipeline {
+agent any
+
+```
+stages {
+
+    stage('Checkout Code') {
+        steps {
+            git branch: 'main', url: 'https://github.com/RuturajWairkar6536/scientific-calculator-devops.git'
+        }
+    }
+
+    stage('Unit Testing') {
+        steps {
+            echo "Running basic unit test stage"
+            sh 'javac Calculator.java'
+        }
+    }
+
+    stage('Build Java Program') {
+        steps {
+            echo "Compiling Java Program"
+            sh 'javac Calculator.java'
+        }
+    }
+
+    stage('Build Docker Image') {
+        steps {
+            echo "Building Docker Image"
+            sh 'docker build -t ruturaj6536/sci-calc .'
+        }
+    }
+
+    stage('Push Docker Image') {
+        steps {
+            echo "Pushing Docker Image to DockerHub"
+            sh 'docker push ruturaj6536/sci-calc:latest'
+        }
+    }
+}
+
+post {
+
+    success {
+        emailext(
+            subject: "Jenkins Build SUCCESS",
+            body: """
+```
+
+Build Status: SUCCESS
+
+Project: Scientific Calculator DevOps Pipeline
+Build Number: ${env.BUILD_NUMBER}
+Build URL: ${env.BUILD_URL}
+""",
+to: "[ruturajwairkar@gmail.com](mailto:ruturajwairkar@gmail.com)"
+)
+}
+
+```
+    failure {
+        emailext(
+            subject: "Jenkins Build FAILED",
+            body: """
+```
+
+Build Status: FAILED
+
+Project: Scientific Calculator DevOps Pipeline
+Build Number: ${env.BUILD_NUMBER}
+Build URL: ${env.BUILD_URL}
+
+Check Jenkins console for errors.
+""",
+to: "[ruturajwairkar@gmail.com](mailto:ruturajwairkar@gmail.com)"
+)
+}
+}
+}

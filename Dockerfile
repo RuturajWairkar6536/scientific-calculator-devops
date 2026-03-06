@@ -1,9 +1,7 @@
-FROM eclipse-temurin:17
+FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-COPY Calculator.java .
+COPY target/scientific-calculator-1.0.jar app.jar
 
-RUN javac Calculator.java
-
-CMD ["java", "Calculator"]
+ENTRYPOINT ["java","-jar","app.jar"]
