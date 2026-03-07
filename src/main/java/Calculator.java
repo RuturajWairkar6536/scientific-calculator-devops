@@ -1,53 +1,49 @@
-//Webhook Test
-
 import java.util.Scanner;
 
 public class Calculator {
 
-    public static long factorial(int n) {
-        if (n < 0) return -1;
-        long result = 1;
-        for (int i = 1; i <= n; i++) {
-            result *= i;
-        }
-        return result;
-    }
-
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+
             System.out.println("\n===== Scientific Calculator =====");
             System.out.println("1. Square Root");
             System.out.println("2. Factorial");
             System.out.println("3. Natural Log (ln)");
             System.out.println("4. Power (x^b)");
-            System.out.println("5. Exit");
-            System.out.print("Choose option: ");
+            System.out.println("5. Addition");
+            System.out.println("6. Subtraction");
+            System.out.println("7. Multiplication");
+            System.out.println("8. Division");
+            System.out.println("9. Exit");
 
+            System.out.print("Choose option: ");
             int choice = sc.nextInt();
 
             switch (choice) {
+
                 case 1:
                     System.out.print("Enter number: ");
-                    double num1 = sc.nextDouble();
-                    System.out.println("Result: " + Math.sqrt(num1));
+                    double num = sc.nextDouble();
+                    System.out.println("Result: " + Math.sqrt(num));
                     break;
 
                 case 2:
                     System.out.print("Enter integer: ");
-                    int num2 = sc.nextInt();
-                    long fact = factorial(num2);
-                    if (fact == -1)
-                        System.out.println("Factorial not defined for negative numbers");
-                    else
-                        System.out.println("Result: " + fact);
+                    int n = sc.nextInt();
+                    long fact = 1;
+                    for (int i = 1; i <= n; i++) {
+                        fact *= i;
+                    }
+                    System.out.println("Result: " + fact);
                     break;
 
                 case 3:
                     System.out.print("Enter number: ");
-                    double num3 = sc.nextDouble();
-                    System.out.println("Result: " + Math.log(num3));
+                    double ln = sc.nextDouble();
+                    System.out.println("Result: " + Math.log(ln));
                     break;
 
                 case 4:
@@ -59,12 +55,49 @@ public class Calculator {
                     break;
 
                 case 5:
-                    System.out.println("Exiting...");
+                    System.out.print("Enter first number: ");
+                    double a = sc.nextDouble();
+                    System.out.print("Enter second number: ");
+                    double b = sc.nextDouble();
+                    System.out.println("Result: " + (a + b));
+                    break;
+
+                case 6:
+                    System.out.print("Enter first number: ");
+                    a = sc.nextDouble();
+                    System.out.print("Enter second number: ");
+                    b = sc.nextDouble();
+                    System.out.println("Result: " + (a - b));
+                    break;
+
+                case 7:
+                    System.out.print("Enter first number: ");
+                    a = sc.nextDouble();
+                    System.out.print("Enter second number: ");
+                    b = sc.nextDouble();
+                    System.out.println("Result: " + (a * b));
+                    break;
+
+                case 8:
+                    System.out.print("Enter first number: ");
+                    a = sc.nextDouble();
+                    System.out.print("Enter second number: ");
+                    b = sc.nextDouble();
+
+                    if (b == 0) {
+                        System.out.println("Error: Cannot divide by zero.");
+                    } else {
+                        System.out.println("Result: " + (a / b));
+                    }
+                    break;
+
+                case 9:
+                    System.out.println("Exiting calculator...");
                     sc.close();
-                    System.exit(0);
+                    return;
 
                 default:
-                    System.out.println("Invalid choice!");
+                    System.out.println("Invalid option. Try again.");
             }
         }
     }
